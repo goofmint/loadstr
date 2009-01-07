@@ -36,3 +36,12 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer
   config.gem "googlecharts", :lib => "gchart"
 end
+
+require "smtp_tls"
+
+ActionMailer::Base.smtp_settings = {:address => "smtp.gmail.com",
+:port => 587,
+:authentication => :plain,
+:user_name => "someone@openrain.com",
+:password => 'someonesPassword'}
+
