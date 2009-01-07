@@ -1,0 +1,38 @@
+<% content_for :header do -%>
+  What will you do in 2009?
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <h2><%= link_to "Post to your goals!", :controller => :goals, :action => :new %></h2>
+<% end -%>
+
+<p>Loadstr is Web service that post your goals in 2009. It's so simple format, "I'll do something <i>number</i> something in 2009"</p>
+<p>For example, "I'll go to the trip 10 times in 2009" or "I'll develop 3 Web services in 2009". right?</p>
+<h2>Recent members goal</h2>
+<p>Loadstr is public goal system. So, your goals are open for everyone. Please do not write your customer name or personal name.</p>
+<div id="othermembers">
+  <% User.find(:all, :limit => 3, :order => 'users.id desc', :conditions => ['goals.created_at is not null'], :include => :goals).each {|user| %>
+    <div class="bubble">
+      <div class="rounded">
+        <blockquote>
+          <p>
+            <% user.goals.each {|goal| %>
+              <%=h goal_text(goal) if goal.has_text? %><br />
+            <% } %>
+          </p>
+        </blockquote>
+      </div>
+      <cite class="rounded"><strong>
+        <% if user.email.blank? %>
+          <%= image_tag "no-gravatar.16.gif" %>
+        <% else %>
+          <%= gravatar_for user, :size => 16 %>
+        <% end %>
+          <%= link_to h(user.name.blank? ? "No name" : user.name), :controller => :goals, :action => :show, :id => user %>
+      </strong></cite>
+    </div>
+  <% } %>
+</div>
+<br class="clear" />
+<h2>Do you want to post your goals?</h2>
+<p><%= link_to "Let's start!", :controller => :goals, :action => :new %></p>

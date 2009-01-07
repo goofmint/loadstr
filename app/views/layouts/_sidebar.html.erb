@@ -1,0 +1,24 @@
+What will you do in 2009?
+<h2>Recent actions</h2>
+<% History.find(:all, :order => 'history_at desc', :limit => 10).each do |history| %>
+  <div class="bubble">
+    <div class="rounded">
+      <blockquote>
+        <p>
+          <%=h "#{history.number} #{history.message}" %> at <%=h history.history_at.strftime("%m/%d/%Y") %>
+        </p>
+      </blockquote>
+    </div>
+    <cite class="rounded">
+      <strong>
+        <% username = history.goal.user.name.blank? ? "No name" : history.goal.user.name %>
+        <% if history.goal.user.email.blank? %>
+          <%= image_tag "no-gravatar.16.gif" %>
+        <% else %>
+          <%= gravatar_for history.goal.user, :size => 16 %>
+        <% end %>
+        <%= link_to h(username), :controller => :goals, :action => :show, :id => history.goal.user %>
+      </strong>
+    </cite>
+  </div>
+<% end %>

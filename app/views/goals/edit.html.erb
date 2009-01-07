@@ -1,0 +1,18 @@
+<% content_for :header do -%>
+  What will you do in 2009?
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <h2>Post to your goals!</h2>
+<% end -%>
+
+<ul>
+  <% form_for :goals do |f|%>
+    <% (0..2).each {|n| %>
+      <li>
+        I'll <%= f.text_field :message, :size => 25, :name => "goals[#{n}][message]" %> <%= f.text_field :number, :size => 4, :name => "goals[#{n}][number]" %> <%= f.text_field :message2, :size => 25, :name => "goals[#{n}][message2]" %> in 2009. Currently <%= f.text_field :current, :size => 4, :name => "goals[#{n}][current]", :value => 0 %>
+      </li>
+    <% } %>
+    <li><%= f.submit "Set my goal" %></li>
+  <% end %>
+</ul>

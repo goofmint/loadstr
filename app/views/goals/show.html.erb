@@ -1,0 +1,19 @@
+<% content_for :header do -%>
+  <%=h @user.name.blank? ? "No name" : @user.name %>'s  goals
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "layouts/sidebar" %>
+<% end -%>
+
+<ul class="goals">
+  <% i = 0 %>
+  <% @user.goals.find(:all, :order => 'id').each {|goal| %>
+    <% i += 1 %>
+    <li>
+      <%= image_tag "star#{i}.png" %>
+      <%=h goal_text goal %>
+      <%= image_tag Gchart.sparkline(:data => [goal.sparklines, goal.totallines], :size => '120x20', :line_colors => ['0077CC', '77CC00']) %>
+    </li>
+  <% } %>
+</ul>

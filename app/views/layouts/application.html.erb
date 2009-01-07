@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title><%= configatron.site_name %></title>
+	
+	<%= stylesheet_link_merged :base %>
+        <%= javascript_include_tag :defaults, "rounded_corners.inc", "jquery.form-defaults" %>
+	<script type="text/JavaScript">
+	  window.onload = function() {
+	      settings = {
+	          tl: { radius: 10 },
+	          tr: { radius: 10 },
+	          bl: { radius: 10 },
+	          br: { radius: 10 },
+	          antiAlias: true,
+	          autoPad: true
+	      }
+	      var myBoxObject = new curvyCorners(settings, "rounded");
+	      myBoxObject.applyCornersToAll();
+	  }
+	</script>
+</head>
+
+<body>
+
+  <div id="header">
+    <div id="global_links">
+      <%= render :partial => 'shared/global_links' %>
+    </div>
+    <h1><%= link_to image_tag("logo.png", :border => 0), "/" %></h1>
+  </div>
+
+  <div id="main">
+
+    <div id="left">
+	  <%= flash_message %>
+
+      <h2 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h2>
+
+      <div id="screen">
+        <%= yield %>
+      </div>
+    </div>
+    <div id="right">
+      <%= yield_or_default(yield(:sidebar)) %>
+    </div>
+  </div>
+  <div id="footer">
+    <%= configatron.site_name %> by <%= configatron.company_name %><br />
+	Copyright © <%= configatron.company_name %>
+  </div>
+
+
+</body>
+</html>

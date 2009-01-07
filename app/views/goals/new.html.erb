@@ -1,0 +1,32 @@
+<% content_for :header do -%>
+  <%= render :partial => "layouts/sidebar" %>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <h2>Post to your goals!</h2>
+<% end -%>
+
+<ul class="goals">
+  <% form_for :goals do |f|%>
+    <% (0..2).each {|n| %>
+      <li>
+        <%= image_tag "star#{n+1}.png" %>
+        I'll <%= f.text_field :message, :size => 10, :name => "goals[#{n}][message]", :id => "goals_#{n}_message" %> <%= f.text_field :number, :size => 4, :name => "goals[#{n}][number]", :id => "goals_#{n}_number" %> <%= f.text_field :message2, :size => 10, :name => "goals[#{n}][message2]", :id => "goals_#{n}_message2" %> in 2009. Currently <%= f.text_field :current, :size => 4, :name => "goals[#{n}][current]", :value => 0, :id => "goals_#{n}_current" %>
+      </li>
+    <% } %>
+    <li><%= f.submit "Set my goal" %></li>
+  <% end %>
+    <li><strong>Sample</strong></li>
+    <li>
+      <%= image_tag "star4.png" %>
+      I'll <input type="text" size="10" value="develop" /> <input type="text" size="4" value="10" /> <input type="text" size="10" value="Web services" /> in 2009. Currently <input type="text" value="0" size="4" /></li>
+      <%= image_tag "star4.png" %>
+      I'll <input type="text" size="10" value="write" /> <input type="text" size="4" value="8" /> <input type="text" size="10" value="research papers" /> in 2009. Currently <input type="text" value="0" size="4" /></li>
+</ul>
+<script type="text/javascript">
+  for(i=0; i<=2; i++) {
+    $("#goals_"+i+"_message").DefaultValue("action");
+    $("#goals_"+i+"_message2").DefaultValue("message");
+    $("#goals_"+i+"_number").DefaultValue("number");
+  }
+</script>

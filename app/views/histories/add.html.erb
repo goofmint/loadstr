@@ -1,0 +1,5 @@
+<% remote_form_for(:history, :update =>"history_#{@goal.id}") do |f| %>
+  
+  <%= f.text_field :number, :size => 4, :id => "history_number_#{@goal.id}" %> <%= f.text_field :message, :size => 20, :id => "history_message_#{@goal.id}" %> at <%= f.text_field :history_at, :size => 10 %>. <%= f.submit "Add" %> <input type="button" value="Cancel" onclick="javascript:$('history_<%= @goal.id %>').hide" /><br /> &nbsp;&nbsp;&nbsp;&uarr; Number is <%= f.radio_button :style, "1" %> Update or <%= f.radio_button :style, "2" %> Add. 
+  
+<% end %>

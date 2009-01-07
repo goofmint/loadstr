@@ -1,0 +1,29 @@
+<% content_for :header do -%>
+  Add history
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "layouts/sidebar" %>
+<% end -%>
+
+<p>Click add icon and input your history</p>
+<ul class="goals">
+  <% i = 0 %>
+  <% current_user.goals.find(:all, :order => 'id').each {|goal| %>
+    <% i += 1 %>
+    <li><span class="middle">
+      <%= image_tag "star#{i}.png" %>
+      <%=h goal_text goal %>
+      <%= image_tag Gchart.sparkline(:data => [goal.sparklines, goal.totallines], :size => '120x20', :line_colors => ['0077CC', '77CC00']) %>
+      <%= link_to_remote image_tag("add.png", :border => 0), :method => :get, :url => {:controller => :histories, :action => :add, :id => goal.id}, :update => "history_#{goal.id}", :success => "set_default_history(#{goal.id})" %>
+      <div id="history_<%= goal.id %>"></div>
+      </span>
+    </li>
+  <% } %>
+</ul>
+
+<h3>Notice</h3>
+<p><strong>History sample</strong></p>
+<p><input type="text" value="9.1" size="4" /> <input type="text" size="20" value="km ran" /> at <input type="text" size="10" value="<%= Time.now.strftime("%m/%d/%Y")%>" /></p>
+<p><input type="text" value="1" size="4" /> <input type="text" size="20" value="book read" /> at <input type="text" size="10" value="<%= (Time.now - 1.day).strftime("%m/%d/%Y")%>" /></p>
+
