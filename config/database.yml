@@ -28,11 +28,10 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: baseapp_test
+  database: loadstr_test
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: demo
+  password: demo
 
 production:
   adapter: mysql

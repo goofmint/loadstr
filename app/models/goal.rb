@@ -2,6 +2,8 @@ class Goal < ActiveRecord::Base
   belongs_to :user
   has_many :histories
   
+  validates_presence_of :message, :number, :message2, :current
+  
   def totallines
     result = []
     ary = {}

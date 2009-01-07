@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   
   # Hooks
   after_create :create_profile
+  before_save :goals_check
   
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -105,5 +106,11 @@ protected
     # Give the user a profile
     self.profile = Profile.create    
   end
-
+  
+  def goals_check
+    if self.goals.size == 3 || self.goals.size == 0
+    else
+      errors.add_to_base("Goals have to set 3.")
+    end
+  end
 end

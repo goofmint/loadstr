@@ -5,3 +5,24 @@
 #
 # two:
 #   column: value
+run:
+  user_id: 1
+  message: "run"
+  number: 1000
+  message2: "km"
+  current: 0
+
+develop:
+  user_id: 1
+  message: "develop"
+  number: 10
+  message2: "Web services"
+  current: 0
+
+book:
+  user_id: 1
+  message: "read"
+  number: 100
+  message2: "books"
+  current: 0
+

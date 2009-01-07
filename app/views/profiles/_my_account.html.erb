@@ -10,9 +10,12 @@
 </div>
 
 <ul>
-	<li><%= link_to("Create my goal", :controller => :goals, :action => :new) if @user.goals.size == 0 %></li>
-	<li><%= link_to("Update my goal", :controller => :goals) if @user.goals.size != 0 %></li>
-	<li><%= link_to "Update my profile", edit_profile_url(current_user) %></li>
+  <% if @user.goals.size == 0 %>
+    <li><%= link_to("Create my goal", :controller => :goals, :action => :new) %></li>
+  <% else %>
+    <li><%= link_to("Update my goal", :controller => :goals) %></li>
+  <% end %>
+  <li><%= link_to "Update my profile", edit_profile_url(current_user) %></li>
 </ul>
 
 <% if @user.not_using_openid? %>
