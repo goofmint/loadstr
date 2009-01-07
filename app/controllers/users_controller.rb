@@ -225,11 +225,16 @@ class UsersController < ApplicationController
   end
   
   def successful_creation(user)
+    self.current_user = user
+    if self.current_user.name.blank?
+      flash[:notice] = "Thanks for signing up!"
+      flash[:notice] << " We're sending you an email with your activation code." if @user.not_using_openid?
+      flash[:notice] << " You can now login with your OpenID." if ! @user.not_using_openid?
+      flash[:notice] << "Please update your name and e-mail"
+      return redirect_to(edit_profile_url(self.current_user))
+    end
     redirect_back_or_default(root_path)
     flash[:notice] = "Thanks for signing up!"
-    flash[:notice] << " We're sending you an email with your activation code." if @user.not_using_openid?
-    flash[:notice] << " You can now login with your OpenID." if ! @user.not_using_openid?
-    self.current_user = user
   end
   
   def failed_creation(message = 'Sorry, there was an error creating your account')

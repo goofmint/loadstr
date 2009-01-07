@@ -66,6 +66,10 @@ class SessionsController < ApplicationController
     
     new_cookie_flag = (params[:remember_me] == "1")
     handle_remember_cookie! new_cookie_flag
+    if self.current_user.name.blank?
+      flash[:notice] = "Please update your name and email"
+      return redirect_to(edit_profile_url(self.current_user))
+    end
     redirect_back_or_default(root_path)
     flash[:notice] = "Logged in successfully"
   end
